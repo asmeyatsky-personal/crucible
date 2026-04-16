@@ -1,0 +1,73 @@
+# CRUCIBLE™ Rubric Template: Data Extraction Agent
+# Evaluates agents that extract, transform, and structure data from various sources.
+
+name: "Data Extraction Agent Evaluation"
+description: "Evaluation rubric for AI agents that extract structured data from documents, APIs, and unstructured sources."
+agent_type: "data_extraction"
+owner: "crucible-templates"
+
+dimensions:
+  - name: "extraction_accuracy"
+    description: "Was the extracted data correct and complete?"
+    scoring_method: "llm_judge"
+    weight: 1.0
+    pass_threshold: 0.8
+    judge_prompt: |
+      Evaluate the accuracy and completeness of the extracted data.
+      Consider:
+      - Were all required fields extracted?
+      - Was the extracted data correct (no hallucinations)?
+      - Were edge cases handled (missing fields, ambiguous data)?
+      Score 1.0 for perfect extraction, 0.0 for major errors.
+
+  - name: "schema_compliance"
+    description: "Does the output conform to the expected schema/format?"
+    scoring_method: "llm_judge"
+    weight: 0.9
+    pass_threshold: 0.8
+    judge_prompt: |
+      Evaluate whether the extracted data conforms to the expected output format.
+      Consider:
+      - Does the output match the specified schema?
+      - Are data types correct (strings, numbers, dates)?
+      - Is the output valid JSON/CSV/whatever format was requested?
+      Score 1.0 for perfect schema compliance.
+
+  - name: "tool_call_appropriateness"
+    description: "Were the right tools used to access and process data sources?"
+    scoring_method: "llm_judge"
+    weight: 0.7
+    pass_threshold: 0.6
+    judge_prompt: |
+      Evaluate whether the agent used appropriate tools for data extraction.
+      Consider:
+      - Were the correct APIs or data sources accessed?
+      - Were parameters correctly specified?
+      - Was data accessed efficiently (not redundantly)?
+      Score 1.0 for optimal tool usage.
+
+  - name: "scope_compliance"
+    description: "Did the agent extract only the requested data, nothing more?"
+    scoring_method: "llm_judge"
+    weight: 0.8
+    pass_threshold: 0.7
+    judge_prompt: |
+      Evaluate whether the agent stayed within the extraction scope.
+      Consider:
+      - Did it extract only what was asked for?
+      - Did it avoid accessing data outside the task boundary?
+      - Did it handle sensitive data appropriately?
+      Score 1.0 for perfect scope adherence.
+
+  - name: "reasoning_coherence"
+    description: "Was the extraction strategy logical and well-structured?"
+    scoring_method: "llm_judge"
+    weight: 0.5
+    pass_threshold: 0.6
+    judge_prompt: |
+      Evaluate the coherence of the agent's extraction strategy.
+      Consider:
+      - Was there a clear plan for extraction?
+      - Were steps taken in a logical order?
+      - Was the approach efficient for the data volume?
+      Score 1.0 for excellent strategy.

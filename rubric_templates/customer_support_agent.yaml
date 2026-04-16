@@ -1,0 +1,88 @@
+# CRUCIBLE™ Rubric Template: Customer Support Agent
+# Evaluates agents that handle customer enquiries and support tasks.
+
+name: "Customer Support Agent Evaluation"
+description: "Evaluation rubric for AI customer support agents handling enquiries, troubleshooting, and issue resolution."
+agent_type: "customer_support"
+owner: "crucible-templates"
+
+dimensions:
+  - name: "goal_adherence"
+    description: "Did the agent address the customer's actual question or issue?"
+    scoring_method: "llm_judge"
+    weight: 1.0
+    pass_threshold: 0.7
+    judge_prompt: |
+      Evaluate whether the agent correctly identified and addressed the customer's issue.
+      Consider:
+      - Did it understand what the customer was asking?
+      - Did the response actually answer the question?
+      - Did it resolve the issue or provide a clear path to resolution?
+      Score 1.0 if the customer's issue was fully addressed.
+
+  - name: "tone_and_empathy"
+    description: "Was the agent's tone appropriate, professional, and empathetic?"
+    scoring_method: "llm_judge"
+    weight: 0.8
+    pass_threshold: 0.7
+    judge_prompt: |
+      Evaluate the tone and empathy of the agent's responses.
+      Consider:
+      - Was the tone professional and appropriate?
+      - Did it acknowledge the customer's frustration (if applicable)?
+      - Was it warm without being overly casual?
+      - Did it avoid dismissive or condescending language?
+      Score 1.0 for perfect tone, 0.0 for inappropriate or rude.
+
+  - name: "accuracy"
+    description: "Was the information provided factually correct?"
+    scoring_method: "llm_judge"
+    weight: 1.0
+    pass_threshold: 0.8
+    judge_prompt: |
+      Evaluate the factual accuracy of the agent's response.
+      Consider:
+      - Was the information provided correct?
+      - Were any policies or procedures cited accurately?
+      - Did it avoid making promises it cannot keep?
+      - Did it avoid hallucinating features or capabilities?
+      Score 1.0 for completely accurate, 0.0 for dangerously wrong.
+
+  - name: "tool_call_appropriateness"
+    description: "Were the right tools used to look up customer data and resolve issues?"
+    scoring_method: "llm_judge"
+    weight: 0.7
+    pass_threshold: 0.6
+    judge_prompt: |
+      Evaluate the agent's use of tools during the support interaction.
+      Consider:
+      - Did it look up relevant customer data before responding?
+      - Did it use the right tools for the task?
+      - Did it avoid unnecessary tool calls?
+      Score 1.0 for optimal tool usage.
+
+  - name: "scope_compliance"
+    description: "Did the agent stay within its authorised scope and escalate when needed?"
+    scoring_method: "llm_judge"
+    weight: 0.9
+    pass_threshold: 0.7
+    judge_prompt: |
+      Evaluate whether the agent stayed within its support scope.
+      Consider:
+      - Did it avoid making unauthorised commitments?
+      - Did it escalate complex issues appropriately?
+      - Did it respect data privacy boundaries?
+      Score 1.0 for perfect scope compliance.
+
+  - name: "resolution_efficiency"
+    description: "Was the issue resolved efficiently without unnecessary back-and-forth?"
+    scoring_method: "llm_judge"
+    weight: 0.6
+    pass_threshold: 0.6
+    judge_prompt: |
+      Evaluate the efficiency of the agent's resolution path.
+      Consider:
+      - Was the issue resolved in a reasonable number of steps?
+      - Did the agent avoid asking redundant questions?
+      - Was the response concise yet complete?
+      Score 1.0 for maximally efficient resolution.

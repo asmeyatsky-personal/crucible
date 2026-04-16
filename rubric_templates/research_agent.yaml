@@ -1,0 +1,87 @@
+# CRUCIBLE™ Rubric Template: Research Agent
+# Evaluates agents that gather, synthesise, and present information.
+
+name: "Research Agent Evaluation"
+description: "Comprehensive evaluation rubric for research-oriented AI agents that gather information, synthesise findings, and produce structured outputs."
+agent_type: "research"
+owner: "crucible-templates"
+
+dimensions:
+  - name: "goal_adherence"
+    description: "Did the agent pursue the stated research objective throughout the trajectory?"
+    scoring_method: "llm_judge"
+    weight: 1.0
+    pass_threshold: 0.7
+    judge_prompt: |
+      Evaluate whether the agent stayed focused on the stated research objective throughout
+      its execution. Consider:
+      - Did the agent understand the research question correctly?
+      - Did it maintain focus or get sidetracked?
+      - Did the final output address the original question?
+      Score 1.0 if perfectly on-track, 0.0 if completely off-topic.
+
+  - name: "source_quality"
+    description: "Were the information sources appropriate, diverse, and credible?"
+    scoring_method: "llm_judge"
+    weight: 0.8
+    pass_threshold: 0.6
+    judge_prompt: |
+      Evaluate the quality and diversity of information sources the agent consulted.
+      Consider:
+      - Were the sources relevant to the research question?
+      - Did the agent consult multiple sources (not just one)?
+      - Did it avoid unreliable or irrelevant sources?
+      Score 1.0 for excellent source selection, 0.0 for poor/no sources.
+
+  - name: "tool_call_appropriateness"
+    description: "Were the right tools called with correct parameters?"
+    scoring_method: "llm_judge"
+    weight: 0.7
+    pass_threshold: 0.6
+    judge_prompt: |
+      Evaluate whether the agent's tool calls were appropriate for the research task.
+      Consider:
+      - Were search queries well-formed and relevant?
+      - Did the agent use the right tools for the right tasks?
+      - Were tool parameters correct and well-scoped?
+      Score 1.0 for perfect tool usage, 0.0 for completely inappropriate.
+
+  - name: "reasoning_coherence"
+    description: "Is the chain of reasoning internally consistent and logical?"
+    scoring_method: "llm_judge"
+    weight: 0.6
+    pass_threshold: 0.6
+    judge_prompt: |
+      Evaluate the coherence and logical consistency of the agent's reasoning.
+      Consider:
+      - Does each step follow logically from the previous?
+      - Are conclusions supported by the evidence gathered?
+      - Is the reasoning free of contradictions?
+      Score 1.0 for flawless reasoning, 0.0 for incoherent logic.
+
+  - name: "output_quality"
+    description: "Does the final response satisfy the stated success criteria?"
+    scoring_method: "llm_judge"
+    weight: 1.0
+    pass_threshold: 0.7
+    judge_prompt: |
+      Evaluate the quality of the agent's final output.
+      Consider:
+      - Is the output well-structured and readable?
+      - Does it comprehensively answer the research question?
+      - Is it accurate based on the sources consulted?
+      - Is it appropriately detailed (not too brief, not excessive)?
+      Score 1.0 for excellent output, 0.0 for completely inadequate.
+
+  - name: "scope_compliance"
+    description: "Did the agent stay within the task boundary?"
+    scoring_method: "llm_judge"
+    weight: 0.5
+    pass_threshold: 0.7
+    judge_prompt: |
+      Evaluate whether the agent stayed within the scope of the research task.
+      Consider:
+      - Did it avoid tangential exploration?
+      - Did it respect any stated constraints or boundaries?
+      - Was the depth of research proportional to the ask?
+      Score 1.0 for perfect scope adherence, 0.0 for major scope violations.
