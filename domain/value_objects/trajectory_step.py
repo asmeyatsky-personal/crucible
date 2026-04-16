@@ -38,3 +38,7 @@ class TrajectoryStep:
     token_count: int | None = None
     model_id: str | None = None
     metadata: dict = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if self.step_index < 0:
+            raise ValueError(f"step_index must be non-negative, got {self.step_index}")

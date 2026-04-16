@@ -77,6 +77,35 @@ class TestRubric:
         assert abs(weights["d2"] - 0.6) < 0.001
         assert abs(sum(weights.values()) - 1.0) < 0.001
 
+    def test_normalised_weights_zero_total(self):
+        """When all dimension weights are 0, normalised_weights returns 0.0 for each."""
+        dim_zero = RubricDimension(
+            name="d1",
+            description="desc",
+            scoring_method=ScoringMethod.EXACT_MATCH,
+            weight=0.0,
+            pass_threshold=0.5,
+        )
+        # Bypass Rubric.create which validates; build directly to test the property.
+        rubric = Rubric(
+            id="r-1",
+            name="Zero weights",
+            description="desc",
+            dimensions=(dim_zero,),
+        )
+        weights = rubric.normalised_weights
+        assert weights == {"d1": 0.0}
+
+    def test_clear_events(self):
+        rubric = Rubric.create(
+            id="r-1", name="Test", description="desc",
+            dimensions=[_dim("d1")],
+        )
+        assert len(rubric.domain_events) == 1
+        cleared = rubric.clear_events()
+        assert len(cleared.domain_events) == 0
+        assert len(rubric.domain_events) == 1  # original unchanged
+
     def test_rubric_is_immutable(self):
         rubric = Rubric.create(
             id="r-1", name="Test", description="desc",

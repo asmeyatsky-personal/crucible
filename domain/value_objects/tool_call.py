@@ -23,3 +23,9 @@ class ToolCall:
     success: bool
     timestamp: datetime
     error: str | None = None
+
+    def __post_init__(self) -> None:
+        if not self.name:
+            raise ValueError("Tool call name must not be empty")
+        if self.latency_ms < 0:
+            raise ValueError(f"latency_ms must be non-negative, got {self.latency_ms}")

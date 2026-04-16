@@ -18,7 +18,7 @@ import asyncio
 from uuid import uuid4
 
 from application.dtos.evaluation_dto import EvaluateRunRequest
-from domain.entities.evaluation import Evaluation
+from domain.entities.evaluation import Evaluation, RegressionDetectedEvent
 from domain.ports.evaluation_repository_port import EvaluationRepositoryPort
 from domain.ports.event_bus_port import EventBusPort
 from domain.ports.judge_port import JudgePort
@@ -105,7 +105,6 @@ class EvaluateRunUseCase:
 
         events = list(evaluation.domain_events)
         if regression.regressed:
-            from domain.entities.evaluation import RegressionDetectedEvent
             events.append(
                 RegressionDetectedEvent(
                     aggregate_id=evaluation.id,
